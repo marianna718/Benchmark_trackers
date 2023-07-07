@@ -2,6 +2,25 @@
 in this repo there are and will be some changes , which include new dataset our_data in uav in ITB , and its grountruth , also some external files which are used for data- experints , this files are  to _ordered_text_file.py , this file can be used when working with multiple trackers at sam flow , to_csv.py is used to cnvert txt results into txt 
 also we shuld pay attantion to demo.txt becouse it will be overwrited with results of models evalueations.
 
+# DVC piplines 
+bat dvc.yaml~Output:
+stages:
+  run_benchmark:
+    cmd: python test_tracker_stark.py --dataset ITB --dataset_path ../ITB
+    deps:
+    - test_tracker_stark.py
+    outs:
+    - result
+  evaluate_results:
+    cmd: python eval.py -p ./results-example/  -d ITB
+    deps:
+    - ./results-examlpe/
+    - eval.py
+    outs:
+    - demo.txt
+
+
+
 # Informative-tracking-benchmark
 Informative tracking benchmark (**ITB**) 
 * **higher diversity**. It contains 9 representative scenarios and 180 diverse videos. <img src="img-examples/moti3.png" width="350" align="right">
